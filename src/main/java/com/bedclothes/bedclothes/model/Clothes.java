@@ -26,16 +26,28 @@ public class Clothes {
     private String size;
     private BigDecimal price;
     private String description;
-    private String image;
 
-    @OneToMany(mappedBy = "clothes", cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "blanket_id")
     private Blanket blanket;
-    @OneToMany(mappedBy = "clothes", cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "duvet_id")
     private Duvet duvet;
-    @OneToMany(mappedBy = "clothes", cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "quilt_id")
     private Quilt quilt;
-    @OneToMany(mappedBy = "clothes", cascade = CascadeType.ALL)
+
+    @ManyToOne
+    @JoinColumn(name = "pillows_id")
     private Pillows pillows;
-    @OneToMany(mappedBy = "clothes", cascade = CascadeType.ALL)
-    private Pilowcases pilowcases;
+
+    @ManyToOne
+    @JoinColumn(name = "pilowcases_id")
+    private Pillowcases pillowcases;
+
+    @OneToOne(mappedBy = "clothes", cascade = CascadeType.ALL)
+    private Image image;
 }

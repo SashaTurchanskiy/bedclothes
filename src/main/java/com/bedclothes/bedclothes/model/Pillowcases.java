@@ -9,14 +9,14 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.List;
 
+
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "blanket")
-public class Blanket {
-
+@Table(name = "pillowcases")
+public class Pillowcases {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,10 +28,10 @@ public class Blanket {
     private String description;
 
 
-    @OneToMany(mappedBy = "blanket")
+    @OneToMany(mappedBy = "pillowcases")
     private List<Clothes> clothes;
 
     @OneToOne
     @JoinColumn(name = "image_id")
-    private Image image; ;
+    private Image image;
 }
