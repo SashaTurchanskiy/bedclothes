@@ -1,6 +1,7 @@
 package com.bedclothes.bedclothes.service.clothes;
 
 import com.bedclothes.bedclothes.dto.ClothesDto;
+import com.bedclothes.bedclothes.dto.PillowsDto;
 import com.bedclothes.bedclothes.exception.ClothesNotFoundException;
 import com.bedclothes.bedclothes.model.Clothes;
 import com.bedclothes.bedclothes.repository.ClothesRepository;
@@ -10,6 +11,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
