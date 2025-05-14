@@ -1,14 +1,21 @@
 package com.bedclothes.bedclothes.controller;
 
 import com.bedclothes.bedclothes.dto.ClothesDto;
+import com.bedclothes.bedclothes.dto.PillowsDto;
 import com.bedclothes.bedclothes.exception.ClothesNotFoundException;
 import com.bedclothes.bedclothes.model.Clothes;
+import com.bedclothes.bedclothes.model.Pillows;
+import com.bedclothes.bedclothes.repository.PillowsRepository;
 import com.bedclothes.bedclothes.request.CreateClothesRequest;
 import com.bedclothes.bedclothes.request.UpdateClothesRequest;
 import com.bedclothes.bedclothes.service.clothes.IClothesService;
+import com.bedclothes.bedclothes.service.pilows.IPillowsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/clothes")
@@ -16,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class ClothesController {
 
     private final IClothesService clothesService;
+    private final IPillowsService pillowsService;
 
     @PostMapping("/create")
     public ResponseEntity<ClothesDto> createClothes(@RequestBody CreateClothesRequest req) {
@@ -35,6 +43,13 @@ public class ClothesController {
         ClothesDto clothesDto = clothesService.convertToClothesDto(clothes);
         return ResponseEntity.ok(clothesDto);
     }
+    @GetMapping("/all")
+    public ResponseEntity<List<ClothesDto>> getAllClothes() {
+        List<Clothes> clothes = clothesService.getAllClothes();
+        List<ClothesDto> clothesDto = clothesService.convertToClothesToDto(clothes);
+        return ResponseEntity.ok(clothesDto);
+    }
+
     @DeleteMapping("/delete/{clothesId}")
     public ResponseEntity<String> deleteClothes(@PathVariable Long clothesId) throws ClothesNotFoundException {
         try {

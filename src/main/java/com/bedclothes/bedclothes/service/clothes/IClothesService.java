@@ -6,6 +6,8 @@ import com.bedclothes.bedclothes.model.Clothes;
 import com.bedclothes.bedclothes.request.CreateClothesRequest;
 import com.bedclothes.bedclothes.request.UpdateClothesRequest;
 
+import java.util.List;
+
 public interface IClothesService {
 
     Clothes getClothesById(Long clothesId);
@@ -16,6 +18,9 @@ public interface IClothesService {
 
     void deleteClothes(Long clothesId) throws ClothesNotFoundException;
 
+    List<Clothes> getAllClothes();
 
     ClothesDto convertToClothesDto(Clothes clothes);
+
+    List<ClothesDto> convertToClothesToDto(List<Clothes> clothesList);
 }
