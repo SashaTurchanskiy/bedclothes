@@ -22,7 +22,8 @@ public class PillowService implements IPillowsService {
 
     @Override
     public Pillows createPillow(CreatePillowRequest req, Clothes clothes) {
-        // Check if a pillow with the same attributes already exists
+
+    // Check if a pillow with the same attributes already exists
         List<Pillows> existingPillows = pillowsRepository.findByNameAndSizeAndColor(req.getName(), req.getSize(), req.getColor());
 
         if (!existingPillows.isEmpty() || clothes.getPillows() != null) {

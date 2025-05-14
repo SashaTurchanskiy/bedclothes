@@ -38,4 +38,13 @@ public class PillowsController {
         List<PillowsDto> dtos = pillowsService.convertPillowToDto(pillows);
         return ResponseEntity.ok(dtos);
     }
+    @DeleteMapping("/delete/{pillowsId}")
+    public ResponseEntity<String> deletePillow(@PathVariable Long pillowsId){
+        try {
+            pillowsService.deletePillow(pillowsId);
+            return ResponseEntity.ok("Pillow deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.ok("Pillow" + pillowsId + "not found");
+        }
+    }
 }

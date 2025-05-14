@@ -26,6 +26,7 @@ public class Pillowcases {
     private String brand;
     private BigDecimal price;
     private String description;
+    private int quantity;
 
 
     @OneToMany(mappedBy = "pillowcases")
