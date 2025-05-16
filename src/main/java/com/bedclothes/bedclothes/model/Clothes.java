@@ -1,5 +1,6 @@
 package com.bedclothes.bedclothes.model;
 
+import com.bedclothes.bedclothes.utils.ImageAttachable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -15,7 +18,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "clothes")
-public class Clothes {
+public class Clothes implements ImageAttachable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +51,12 @@ public class Clothes {
     @JoinColumn(name = "pilowcases_id")
     private Pillowcases pillowcases;
 
-    @OneToOne(mappedBy = "clothes", cascade = CascadeType.ALL)
-    private Image image;
+    @OneToMany(mappedBy = "clothes", cascade = CascadeType.ALL)
+    private List<Image> image = new ArrayList<>();
+
+    @Override
+    public void addImage(Image image) {
+        this.image.add(image);
+        image.setClothes(this);
+    }
 }

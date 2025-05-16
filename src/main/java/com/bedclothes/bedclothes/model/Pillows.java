@@ -1,5 +1,6 @@
 package com.bedclothes.bedclothes.model;
 
+import com.bedclothes.bedclothes.utils.ImageAttachable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "pillows")
-public class Pillows {
+public class Pillows implements ImageAttachable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,12 +29,21 @@ public class Pillows {
     private String description;
     private int quantity;
 
+    // Поля для зображення
+    private Long imageId; // ID зображення
+    private String fileName; // Ім'я файлу
+    private String downloadUrl; // URL для завантаження
+
 
     @OneToMany(mappedBy = "pillows")
     private List<Clothes> clothes;
 
-    @OneToOne
-    @JoinColumn(name = "image_id")
-    private Image image;
+    @OneToMany(mappedBy = "pillows", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> image = new ArrayList<>();
 
+    @Override
+    public void addImage(Image image) {
+        this.image.add(image);
+        image.setPillows(this);
+    }
 }

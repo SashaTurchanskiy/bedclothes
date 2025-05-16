@@ -1,15 +1,19 @@
 package com.bedclothes.bedclothes.service.pilows;
 
+import com.bedclothes.bedclothes.dto.ImageDto;
 import com.bedclothes.bedclothes.dto.PillowsDto;
+import com.bedclothes.bedclothes.exception.ImageNotFoundException;
 import com.bedclothes.bedclothes.exception.PillowsNotFoundException;
 import com.bedclothes.bedclothes.model.Clothes;
 import com.bedclothes.bedclothes.model.Pillows;
 import com.bedclothes.bedclothes.repository.PillowsRepository;
 import com.bedclothes.bedclothes.request.CreatePillowRequest;
 import com.bedclothes.bedclothes.request.UpdatePillowsRequest;
+import com.bedclothes.bedclothes.service.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,6 +22,7 @@ import java.util.List;
 public class PillowService implements IPillowsService {
 
     private final PillowsRepository pillowsRepository;
+    private final ImageService imageService;
     private final ModelMapper modelMapper;
 
     @Override
@@ -94,6 +99,28 @@ public class PillowService implements IPillowsService {
         return pillowsList.stream()
                 .map(this::convertPillowToDto)
                 .toList();
+    }
+    @Override
+    public ImageDto savedImage(MultipartFile file, Long pillowsId) {
+        Pillows pillows = pillowsRepository.findById(pillowsId).orElseThrow(()->
+                new ImageNotFoundException("Image not found"));
+
+        ImageDto imageDto = imageService.saveImage(file, pillows, image -> image.setPillows(pillows));
+
+        pillows.setImageId(imageDto.getId());
+        pillows.setFileName(imageDto.getFileName());
+        pillows.setDownloadUrl(imageDto.getDownloadUrl());
+
+        pillowsRepository.save(pillows);
+
+        return imageDto;
+
+
+
+
+
+
+
     }
 
 }
