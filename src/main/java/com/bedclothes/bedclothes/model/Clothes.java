@@ -1,6 +1,7 @@
 package com.bedclothes.bedclothes.model;
 
 import com.bedclothes.bedclothes.utils.ImageAttachable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,27 +32,8 @@ public class Clothes implements ImageAttachable {
     private String description;
 
 
-    @ManyToOne
-    @JoinColumn(name = "blanket_id")
-    private Blanket blanket;
-
-    @ManyToOne
-    @JoinColumn(name = "duvet_id")
-    private Duvet duvet;
-
-    @ManyToOne
-    @JoinColumn(name = "quilt_id")
-    private Quilt quilt;
-
-    @ManyToOne
-    @JoinColumn(name = "pillows_id")
-    private Pillows pillows;
-
-    @ManyToOne
-    @JoinColumn(name = "pilowcases_id")
-    private Pillowcases pillowcases;
-
     @OneToMany(mappedBy = "clothes", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Image> image = new ArrayList<>();
 
     @Override

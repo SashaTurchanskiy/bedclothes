@@ -1,20 +1,15 @@
 package com.bedclothes.bedclothes.controller;
 
 import com.bedclothes.bedclothes.dto.ClothesDto;
-import com.bedclothes.bedclothes.dto.PillowsDto;
 import com.bedclothes.bedclothes.exception.ClothesNotFoundException;
 import com.bedclothes.bedclothes.model.Clothes;
-import com.bedclothes.bedclothes.model.Pillows;
-import com.bedclothes.bedclothes.repository.PillowsRepository;
 import com.bedclothes.bedclothes.request.CreateClothesRequest;
 import com.bedclothes.bedclothes.request.UpdateClothesRequest;
 import com.bedclothes.bedclothes.service.clothes.IClothesService;
-import com.bedclothes.bedclothes.service.pilows.IPillowsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,7 +18,7 @@ import java.util.List;
 public class ClothesController {
 
     private final IClothesService clothesService;
-    private final IPillowsService pillowsService;
+
 
     @PostMapping("/create")
     public ResponseEntity<ClothesDto> createClothes(@RequestBody CreateClothesRequest req) {

@@ -29,19 +29,7 @@ public class Image {
     @JoinColumn(name = "clothes_id")
     private Clothes clothes;
 
-    @ManyToOne
-    @JoinColumn(name = "pillows_id")
-    private Pillows pillows;
-    @OneToOne
-    @JoinColumn(name = "pillowcases_id")
-    private Pillowcases pillowcases;
-    @OneToOne
-    @JoinColumn(name = "blanket_id")
-    private Blanket blanket;
-    @OneToOne
-    @JoinColumn(name = "duvet_id")
-    private Duvet duvet;
-    @OneToOne
-    @JoinColumn(name = "quilt_id")
-    private Quilt quilt;
+
+
+
 }
